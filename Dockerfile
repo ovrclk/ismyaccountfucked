@@ -1,6 +1,11 @@
-FROM ghcr.io/ovrclk/akash:0.10.1
+FROM ubuntu:20.10
+
 LABEL org.opencontainers.image.source https://github.com/ovrclk/ismyaccountfucked
 
 EXPOSE 8080
 
-CMD /ismyaccountfucked server
+ADD ismyaccountfucked ismyaccountfucked
+
+ENTRYPOINT ["/ismyaccountfucked"]
+
+CMD ["server"]

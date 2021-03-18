@@ -5,12 +5,18 @@ on:
       - v*
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "~1.16"
       - name: build
         run: |
-          echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u "${{ secrets.CR_USER }}" --password-stdin
+          go build .
+      - name: release
+        run: |
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USER }}" --password-stdin
           docker build . --tag ghcr.io/ovrclk/ismyaccountfucked:${GITHUB_REF#refs/tags/}
           docker push ghcr.io/ovrclk/ismyaccountfucked:${GITHUB_REF#refs/tags/}

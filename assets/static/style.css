@@ -1,2 +1,11 @@
-body {
+.main {
+  width: 100%;
+  text-align: center;
+  margin: auto;
 };
+
+.content {
+  width: 80%;
+  text-align: center;
+  margin: auto;
+}
