@@ -27,7 +27,7 @@ func getStatus(cctx client.Context, denom string, address string) (Status, error
 	vacc, ok := acc.(vestexported.VestingAccount)
 	if !ok {
 		return Status{
-			Address:   acc.GetAddress().String(),
+			Address:   address,
 			IsVesting: false,
 		}, nil
 	}
@@ -58,7 +58,24 @@ func getStatus(cctx client.Context, denom string, address string) (Status, error
 		DelegatedVesting: getDenom(vacc.GetDelegatedVesting(), denom),
 	}
 
+	status.ExpectedDelegatedFree = getExpectedDelegatedFree(
+		status.Delegated, status.BalanceVesting, status.BalanceVested)
+	status.ExpectedDelegatedVesting = getExpectedDelegatedVesting(
+		status.Delegated, status.BalanceVesting)
+
 	return status, nil
+}
+
+func getExpectedDelegatedVesting(delegated, vesting sdk.Coin) sdk.Coin {
+	if delegated.IsLT(vesting) {
+		return delegated
+	}
+	return vesting
+}
+
+func getExpectedDelegatedFree(delegated, vesting, vested sdk.Coin) sdk.Coin {
+	notvesting := delegated.Amount.Sub(getExpectedDelegatedVesting(delegated, vesting).Amount)
+	return sdk.NewCoin(delegated.Denom, notvesting)
 }
 
 func getDenom(coins sdk.Coins, denom string) sdk.Coin {

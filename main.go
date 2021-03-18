@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"text/tabwriter"
 
 	"github.com/alecthomas/kong"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -22,6 +20,7 @@ type runctx struct {
 
 type queryCmd struct {
 	Address string `arg help:"Address"`
+	Verbose bool   `help:"Verbose output" default:"false"`
 }
 
 func (c *queryCmd) Run(ctx *runctx) error {
@@ -30,6 +29,30 @@ func (c *queryCmd) Run(ctx *runctx) error {
 		return err
 	}
 
+	if c.Verbose {
+		return c.runVerbose(status)
+	}
+
+	fmt.Print(status.Address)
+	fmt.Print("\t")
+
+	switch {
+	case !status.IsVesting:
+		fmt.Print("unaffected")
+	case status.BalanceSpendable.IsZero():
+		fmt.Print("locked")
+	case status.IsCorrupted():
+		fmt.Print("corrupted")
+	default:
+		fmt.Print("uncorrupted")
+	}
+
+	fmt.Print("\n")
+
+	return nil
+}
+
+func (c *queryCmd) runVerbose(status Status) error {
 	if !status.IsVesting {
 		fmt.Printf("%s is NOT FUCKED, it is not a vesting account\n", status.Address)
 		return nil
@@ -43,20 +66,16 @@ func (c *queryCmd) Run(ctx *runctx) error {
 
 	fmt.Print("\n\n")
 
-	w := tabwriter.NewWriter(os.Stdout, 20, 8, 0, '\t', 0)
-	// fmt.Fprintf(w, "Address\t%s\t\n", status.Address)
-	// fmt.Fprintf(w, "IsVesting\t%v\t\n", status.IsVesting)
-
-	fmt.Fprintf(w, "Balance\t%13s\t\n", formatAmount(status.Balance))
-	fmt.Fprintf(w, "Delegated\t%13s\t\n", formatAmount(status.Delegated))
-	fmt.Fprintf(w, "BalanceLocked\t%13s\t\n", formatAmount(status.BalanceLocked))
-	fmt.Fprintf(w, "BalanceSpendable\t%13s\t\n", formatAmount(status.BalanceSpendable))
-	fmt.Fprintf(w, "BalanceVesting\t%13s\t\n", formatAmount(status.BalanceVesting))
-	fmt.Fprintf(w, "BalanceVested\t%13s\t\n", formatAmount(status.BalanceVested))
-	fmt.Fprintf(w, "DelegatedFree\t%13s\t\n", formatAmount(status.DelegatedFree))
-	fmt.Fprintf(w, "DelegatedVesting\t%13s\t\n", formatAmount(status.DelegatedVesting))
-
-	w.Flush()
+	fmt.Printf("Balance                  %15s\t\n", formatAmount(status.Balance))
+	fmt.Printf("Delegated                %15s\t\n", formatAmount(status.Delegated))
+	fmt.Printf("BalanceLocked            %15s\t\n", formatAmount(status.BalanceLocked))
+	fmt.Printf("BalanceSpendable         %15s\t\n", formatAmount(status.BalanceSpendable))
+	fmt.Printf("BalanceVesting           %15s\t\n", formatAmount(status.BalanceVesting))
+	fmt.Printf("BalanceVested            %15s\t\n", formatAmount(status.BalanceVested))
+	fmt.Printf("DelegatedFree            %15s\t\n", formatAmount(status.DelegatedFree))
+	fmt.Printf("DelegatedVesting         %15s\t\n", formatAmount(status.DelegatedVesting))
+	fmt.Printf("ExpectedDelegatedFree    %15s\t\n", formatAmount(status.ExpectedDelegatedFree))
+	fmt.Printf("ExpectedDelegatedVesting %15s\t\n", formatAmount(status.ExpectedDelegatedVesting))
 
 	return nil
 }
