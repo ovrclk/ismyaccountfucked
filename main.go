@@ -29,25 +29,32 @@ func (c *queryCmd) Run(ctx *runctx) error {
 	if err != nil {
 		return err
 	}
-	w := tabwriter.NewWriter(os.Stdout, 20, 8, 0, '\t', 0)
-
-	fmt.Fprintf(w, "Address\t%s\t\n", status.Address)
-	fmt.Fprintf(w, "IsVesting\t%v\t\n", status.IsVesting)
 
 	if !status.IsVesting {
-		w.Flush()
-		fmt.Print("\nNOT FUCKED\n")
+		fmt.Printf("%s is NOT FUCKED, it is not a vesting account\n", status.Address)
 		return nil
 	}
 
-	fmt.Fprintf(w, "Balance\t%v\t\n", formatAmount(status.Balance))
-	fmt.Fprintf(w, "Delegated\t%v\t\n", formatAmount(status.Delegated))
-	fmt.Fprintf(w, "BalanceLocked\t%v\t\n", formatAmount(status.BalanceLocked))
-	fmt.Fprintf(w, "BalanceSpendable\t%v\t\n", formatAmount(status.BalanceSpendable))
-	fmt.Fprintf(w, "BalanceVesting\t%v\t\n", formatAmount(status.BalanceVesting))
-	fmt.Fprintf(w, "BalanceVested\t%v\t\n", formatAmount(status.BalanceVested))
-	fmt.Fprintf(w, "DelegatedFree\t%v\t\n", formatAmount(status.DelegatedFree))
-	fmt.Fprintf(w, "DelegatedVesting\t%v\t\n", formatAmount(status.DelegatedVesting))
+	if status.BalanceSpendable.IsZero() {
+		fmt.Printf("\n%s is *KINDA* FUCKED. There are no spendable coins until we update.\n", status.Address)
+	} else {
+		fmt.Printf("\n%s is NOT *YET* FUCKED, do not modify delegation until we update so it stays that way\n", status.Address)
+	}
+
+	fmt.Print("\n\n")
+
+	w := tabwriter.NewWriter(os.Stdout, 20, 8, 0, '\t', 0)
+	// fmt.Fprintf(w, "Address\t%s\t\n", status.Address)
+	// fmt.Fprintf(w, "IsVesting\t%v\t\n", status.IsVesting)
+
+	fmt.Fprintf(w, "Balance\t%13s\t\n", formatAmount(status.Balance))
+	fmt.Fprintf(w, "Delegated\t%13s\t\n", formatAmount(status.Delegated))
+	fmt.Fprintf(w, "BalanceLocked\t%13s\t\n", formatAmount(status.BalanceLocked))
+	fmt.Fprintf(w, "BalanceSpendable\t%13s\t\n", formatAmount(status.BalanceSpendable))
+	fmt.Fprintf(w, "BalanceVesting\t%13s\t\n", formatAmount(status.BalanceVesting))
+	fmt.Fprintf(w, "BalanceVested\t%13s\t\n", formatAmount(status.BalanceVested))
+	fmt.Fprintf(w, "DelegatedFree\t%13s\t\n", formatAmount(status.DelegatedFree))
+	fmt.Fprintf(w, "DelegatedVesting\t%13s\t\n", formatAmount(status.DelegatedVesting))
 
 	w.Flush()
 
