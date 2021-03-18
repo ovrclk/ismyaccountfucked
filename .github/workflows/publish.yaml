@@ -19,4 +19,6 @@ jobs:
         run: |
           echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USER }}" --password-stdin
           docker build . --tag ghcr.io/ovrclk/ismyaccountfucked:${GITHUB_REF#refs/tags/}
+          docker tag ghcr.io/ovrclk/ismyaccountfucked:${GITHUB_REF#refs/tags/} ghcr.io/ovrclk/ismyaccountfucked:latest
           docker push ghcr.io/ovrclk/ismyaccountfucked:${GITHUB_REF#refs/tags/}
+          docker push ghcr.io/ovrclk/ismyaccountfucked:latest
