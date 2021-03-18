@@ -27,12 +27,19 @@ type serverCmd struct {
 
 func (c *serverCmd) Run(ctx *runctx) error {
 
+	funcs := template.FuncMap{
+		"formatAmount": formatAmount,
+	}
+
 	indexT, err := template.ParseFS(templateFiles, "assets/templates/index.html.tmpl")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	showT, err := template.ParseFS(templateFiles, "assets/templates/show.html.tmpl")
+	showT, err := template.
+		New("show.html.tmpl").
+		Funcs(funcs).
+		ParseFS(templateFiles, "assets/templates/show.html.tmpl")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,7 +82,8 @@ func (c *serverCmd) Run(ctx *runctx) error {
 		}
 
 		if err := showT.Execute(w, status); err != nil {
-			http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+			fmt.Printf("error executing: %v", err)
+			// http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 			return
 		}
 

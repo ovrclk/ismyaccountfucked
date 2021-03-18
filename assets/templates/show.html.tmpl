@@ -9,9 +9,77 @@
 <body>
 <div class="main">
 <div class="content">
+
+<div class="result">
+{{ if not .IsVesting }}
+<h3>
+  <span class="address">{{.Address}}</span> is just fine - it is not a vesting account.
+</h3>
+{{ else }}
+
+  {{ if .BalanceSpendable.IsZero }}
+    <h3>
+      <span class="address">{{.Address}}</span> is kinda fucked until we update.
+    </h3>
+  {{ else }}
+    <h3>
+      <span class="address">{{.Address}}</span> is <em>not yet</em> fucked.
+    </h3>
+  {{ end }}
+
+
+  <table class="pure-table account-balances">
+    <tbody>
+      <tr>
+        <td>Bank</td>
+        <td>{{ formatAmount .Balance }}</td>
+      </tr>
+
+      <tr>
+        <td>Delegated</td>
+        <td>{{ formatAmount .Delegated }}</td>
+      </tr>
+
+      <tr>
+        <td>Spendable</td>
+        <td>{{ formatAmount .BalanceSpendable }}</td>
+      </tr>
+
+      <tr>
+        <td>Locked</td>
+        <td>{{ formatAmount .BalanceLocked }}</td>
+      </tr>
+
+      <tr>
+        <td>Vesting</td>
+        <td>{{ formatAmount .BalanceVesting }}</td>
+      </tr>
+
+      <tr>
+        <td>Vested</td>
+        <td>{{ formatAmount .BalanceVested }}</td>
+      </tr>
+
+      <tr>
+        <td>Delegated Free</td>
+        <td>{{ formatAmount .DelegatedFree }}</td>
+      </tr>
+
+      <tr>
+        <td>Delegated Vesting</td>
+        <td>{{ formatAmount .DelegatedVesting }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+{{ end }}
+</div>
+
+<hr />
+
 <form class="pure-form" action="/submit" method="post">
     <fieldset>
-        <input type="text" name="address" placeholder="Address" size=46 />
+        <input type="text" name="address" placeholder="Address" size=48 />
         <button type="submit" class="pure-button pure-button-primary">Well Is it?</button>
     </fieldset>
 </form>
