@@ -86,9 +86,9 @@ func formatAmount(coin sdk.Coin) string {
 	denom := strings.ToUpper(coin.Denom[1:])
 
 	whole := coin.Amount.QuoRaw(1000000).Uint64()
-	frac := coin.Amount.ModRaw(1000000).QuoRaw(10000).Uint64()
+	frac := coin.Amount.ModRaw(1000000).Uint64()
 
-	return fmt.Sprintf("%d.%02d %s", whole, frac, denom)
+	return fmt.Sprintf("%d.%06d %s", whole, frac, denom)
 }
 
 func getAccount(cctx client.Context, address string) (authtypes.AccountI, error) {

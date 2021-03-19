@@ -2,7 +2,27 @@
   margin: 1.1rem;
 }
 
-.wallet-entry{
-  width: 33em;
+.address-card {
+  width: 40rem;
+  /* text-align: center; */
+  margin: auto;
 }
 
+.result{
+  text-align: center;
+}
+
+.wallet-entry{
+  width: 33em;
+  text-align: left;
+}
+
+.wallet-balance{
+  text-align: right;
+}
+
+table.acount-balances {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}

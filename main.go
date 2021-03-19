@@ -66,16 +66,16 @@ func (c *queryCmd) runVerbose(status Status) error {
 
 	fmt.Print("\n\n")
 
-	fmt.Printf("Balance                  %15s\t\n", formatAmount(status.Balance))
-	fmt.Printf("Delegated                %15s\t\n", formatAmount(status.Delegated))
-	fmt.Printf("BalanceLocked            %15s\t\n", formatAmount(status.BalanceLocked))
-	fmt.Printf("BalanceSpendable         %15s\t\n", formatAmount(status.BalanceSpendable))
-	fmt.Printf("BalanceVesting           %15s\t\n", formatAmount(status.BalanceVesting))
-	fmt.Printf("BalanceVested            %15s\t\n", formatAmount(status.BalanceVested))
-	fmt.Printf("DelegatedFree            %15s\t\n", formatAmount(status.DelegatedFree))
-	fmt.Printf("DelegatedVesting         %15s\t\n", formatAmount(status.DelegatedVesting))
-	fmt.Printf("ExpectedDelegatedFree    %15s\t\n", formatAmount(status.ExpectedDelegatedFree))
-	fmt.Printf("ExpectedDelegatedVesting %15s\t\n", formatAmount(status.ExpectedDelegatedVesting))
+	fmt.Printf("Balance                  %18s\t\n", formatAmount(status.Balance))
+	fmt.Printf("Delegated                %18s\t\n", formatAmount(status.Delegated))
+	fmt.Printf("BalanceLocked            %18s\t\n", formatAmount(status.BalanceLocked))
+	fmt.Printf("BalanceSpendable         %18s\t\n", formatAmount(status.BalanceSpendable))
+	fmt.Printf("BalanceVesting           %18s\t\n", formatAmount(status.BalanceVesting))
+	fmt.Printf("BalanceVested            %18s\t\n", formatAmount(status.BalanceVested))
+	fmt.Printf("DelegatedFree            %18s\t\n", formatAmount(status.DelegatedFree))
+	fmt.Printf("DelegatedVesting         %18s\t\n", formatAmount(status.DelegatedVesting))
+	fmt.Printf("ExpectedDelegatedFree    %18s\t\n", formatAmount(status.ExpectedDelegatedFree))
+	fmt.Printf("ExpectedDelegatedVesting %18s\t\n", formatAmount(status.ExpectedDelegatedVesting))
 
 	return nil
 }

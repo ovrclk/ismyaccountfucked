@@ -32,15 +32,15 @@
     <h3>
       <span class="address">{{.Address}}</span> is kinda fucked until we update.
     </h3>
-    </div>
+  </div>
   {{ else }}
   <div class="alert alert-warning" role="alert">
     <h3>
       <span class="address">{{.Address}}</span> is <em>not yet</em> fucked.
     </h3>
-    </div>
-  {{ end }}
   </div>
+  {{ end }}
+</div>
 
 
 <div class="container-fluid">
@@ -48,52 +48,52 @@
     <tbody>
       <tr>
         <td class="wallet-entry">Bank</td>
-        <td>{{ formatAmount .Balance }}</td>
+        <td class="wallet-balance">{{ formatAmount .Balance }}</td>
       </tr>
 
       <tr>
         <td class="wallet-entry">Delegated</td>
-        <td>{{ formatAmount .Delegated }}</td>
+        <td class="wallet-balance">{{ formatAmount .Delegated }}</td>
       </tr>
 
       <tr>
         <td class="wallet-entry">Spendable</td>
-        <td>{{ formatAmount .BalanceSpendable }}</td>
+        <td class="wallet-balance">{{ formatAmount .BalanceSpendable }}</td>
       </tr>
 
       <tr>
         <td class="wallet-entry">Locked</td>
-        <td>{{ formatAmount .BalanceLocked }}</td>
+        <td class="wallet-balance">{{ formatAmount .BalanceLocked }}</td>
       </tr>
 
       <tr>
         <td class="wallet-entry">Vesting</td>
-        <td>{{ formatAmount .BalanceVesting }}</td>
+        <td class="wallet-balance">{{ formatAmount .BalanceVesting }}</td>
       </tr>
 
       <tr>
         <td class="wallet-entry">Vested</td>
-        <td>{{ formatAmount .BalanceVested }}</td>
+        <td class="wallet-balance">{{ formatAmount .BalanceVested }}</td>
       </tr>
 
       <tr>
         <td class="wallet-entry">Delegated Free</td>
-        <td>{{ formatAmount .DelegatedFree }}</td>
+        <td class="wallet-balance">{{ formatAmount .DelegatedFree }}</td>
       </tr>
 
       <tr>
         <td class="wallet-entry">Delegated Vesting</td>
-        <td>{{ formatAmount .DelegatedVesting }}</td>
+        <td class="wallet-balance">{{ formatAmount .DelegatedVesting }}</td>
       </tr>
 
       <tr>
         <td class="wallet-entry">Expected Delegated Vesting</td>
-        <td>{{ formatAmount .ExpectedDelegatedVesting }}</td>
+        <td class="wallet-balance">{{ formatAmount .ExpectedDelegatedVesting }}</td>
       </tr>
 
       <tr>
         <td class="wallet-entry">Expected Delegated Free</td>
-        <td>{{ formatAmount .ExpectedDelegatedFree }}</td>
+        <td class="wallet-balance">{{ formatAmount .ExpectedDelegatedFree }}</td>
       </tr>
     </tbody>
   </table>
@@ -104,7 +104,7 @@
 
 <div class="container-fluid">
 
-<div class="card" style="width: 40rem;">
+<div class="card address-card">
   <div class="card-body">
     <h5 class="card-title">Check another wallet</h5>
     <p class="card-text">
