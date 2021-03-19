@@ -2,19 +2,38 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
 <link rel="stylesheet" href="/s/style.css">
 <meta title="IMAF?">
 </head>
 <body>
 <div class="main">
 <div class="content">
-<form class="pure-form" action="/submit" method="post">
-    <fieldset>
-        <input type="text" name="address" placeholder="Address" size=48 />
-        <button type="submit" class="pure-button pure-button-primary">Well Is it?</button>
-    </fieldset>
-</form>
+<div class="container-fluid">
+
+<div class="card" style="width: 40rem;">
+  <div class="card-body">
+    <h5 class="card-title">IMAF detector</h5>
+    <p class="card-text">
+
+    <form action="/submit" method="post">
+        <div class="mb-3">
+            <label for="addrfield" class="form-label">Wallet address</label>
+            <input id="addrfield" type="text" class="form-control" name="address" placeholder="Address" />
+            <div id="addrHelp" class="form-text">Enter your complete bech32 wallet address</div>
+          </div>
+      	<button type="submit" class="btn btn-primary">Is it?</button>
+    </form>
+    </p>
+
+  </div>
+</div>
+
+
+</div>
 </div>
 </div>
 </body>

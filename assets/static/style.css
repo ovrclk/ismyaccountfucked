@@ -1,11 +1,8 @@
 .main {
-  width: 100%;
-  text-align: center;
-  margin: auto;
-};
-
-.content {
-  width: 80%;
-  text-align: center;
-  margin: auto;
+  margin: 1.1rem;
 }
+
+.wallet-entry{
+  width: 33em;
+}
+
